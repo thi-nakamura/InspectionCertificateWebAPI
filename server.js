@@ -14,7 +14,9 @@ app.get('/v1/inspections/:searchType/:code', (req, res) => {
   var param_code       = req.params.code;       //NG req.query.code;
   
   var reqHeader_companyCode = req.get('companyCode');
-  if (reqHeader_companyCode == undefined)
+  if (reqHeader_companyCode == undefined ||
+      param_searchType      == undefined ||
+      param_code            == undefined)
   {
     res.status(403).send();
     return;
@@ -22,53 +24,63 @@ app.get('/v1/inspections/:searchType/:code', (req, res) => {
   else if (reqHeader_companyCode == "000001")
   {
     res.setHeader('Content-Type', 'application/json;charset=UTF-8');
-    res.setHeader('Content-Length', '1546');
+    //res.setHeader('Content-Length', '1546');
+    
+    var BusinessDiscussionID = 12345678;
+    var AssessmentId = "9876543210";
+    if (param_searchType == "SC")
+    {
+      AssessmentId = param_code;
+    }
+    else
+    {
+      BusinessDiscussionID = Number(param_code);
+    }
+    
     const resData =
       {
-        "searchtype":param_searchType,
-        "code":param_code,
-        "id":"12555345",
-        "qr_scan_mode":"",
-        "c1_system_id":"",
-        "c1_version_num":"",
-        "c1_export_arrangement_num":"",
-        "c1_car_num":"",
-        "c1_syadai_num":"",
-        "c1_katashiki_num":"",
-        "c1_classification_num":"",
-        "c2_system_id":"",
-        "c2_version_num":"",
-        "c2_car_num":"",
-        "c2_number_plate":"",
-        "c2_syadai_num":"",
-        "c2_model_engines":"",
-        "c2_type_forms":"",
-        "c3_system_id":"",
-        "c3_version_num":"",
-        "c3_shadai_num_stamping_position":"",
-        "c3_katashiki_num":"",
-        "c3_classification_num":"",
-        "c3_validity_period":"",
-        "c3_first_year_registration_date":"",
-        "c3_katashiki":"",
-        "c3_f_f_axle_load":"",
-        "c3_f_r_axle_load":"",
-        "c3_r_f_axle_load":"",
-        "c3_r_r_axle_load":"",
-        "c3_noise_regulation":"",
-        "c3_proximity_exhaust_noise_limits":"",
-        "c3_drive_system":"",
-        "c3_measurement_car_opashimeta":"",
-        "c3_measurement_mode_nox_pm":"",
-        "c3_nox_value":"",
-        "c3_pm_value":"",
-        "c3_preliminary_item":"",
-        "created":"",
-        "modified":"",
-        "delete_flg":"0",
-        "data_type":"0",
-        "certificate_car_name":"",
-        "use_type":""
+        "BusinessDiscussionID":Number(BusinessDiscussionID),
+        "AssessmentId":AssessmentId,
+        "DataKind":1,
+        "CarKindCode":"03",
+        "RegisterNoKey":"横浜　　３　　あ　　　１",
+        "Delta0001":"16",
+        "FirstRegisterYm":"198009",
+        "CarNoHyphen":"TU31-301901",
+        "Delta0002":"120",
+        "Model":"DBA-TU31",
+        "EngineModel":"QR25",
+        "FrontFrontAxleWeight":"0094",
+        "FrontRearAxleWeight":"0165",
+        "RearFrontAxleWeight":"0058",
+        "RearRearAxleWeight":"0077",
+        "Delta0003":"10",
+        "Delta0004":"100",
+        "Delta0005":"1",
+        "Delta0006":"1",
+        "Delta0007":"C",
+        "Delta0008":"1234",
+        "Delta0009":"12345",
+        "Delta0010":"080201",
+        "Delta0011":"2",
+        "Delta0012":"1",
+        "CarName":"ﾄﾖﾀ",
+        "FuelCode":"1",
+        "ModelNo":"15028",
+        "TypeClassificationNo":"0231",
+        "Delta0013":"乗用車（普通）",
+        "CarShape":"02",
+        "CarCapacity":"5",
+        "MaxCarryingCapacity":"3000",
+        "CarWeight":"1510",
+        "CarTotalWeight":"1785",
+        "Length":"4860",
+        "Width":"1795",
+        "DisplacementOrRatedOutput":"2378",
+        "InspectionCertificateExpireDate":"20070707",
+        "InsertDate":"2013-09-25 14:35:00.82",
+        "UpdateDate":"2013-09-25 14:35:00.82",
+        "DeleteFlag":"1"
       }
     ;
     res.status(200).json(resData);
