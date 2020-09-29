@@ -21,7 +21,7 @@ app.get('/v1/inspections/:searchType/:code', (req, res) => {
     res.status(403).send();
     return;
   }
-  else if (reqHeader_companyCode == "000001")
+  else if (reqHeader_companyCode == "000002")
   {
     res.setHeader('Content-Type', 'application/json;charset=UTF-8');
     //res.setHeader('Content-Length', '1546');
